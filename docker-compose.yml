@@ -1,0 +1,13 @@
+version: '2'
+services:
+  db:
+    image: postgres
+  web:
+    build: .
+    environment:
+      UWSGI_MOUNTPOINT: /
+      DB_URL: "postgresql://postgres@db/postgres"
+    depends_on:
+    - db
+    links:
+    - db

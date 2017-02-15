@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+<head>
+<title>JEL.bz paste bin</title>
+<style type="text/css">
+textarea {
+	width: 500px;
+	height: 300px;
+}
+#error {
+	background-color: red;
+}
+</style>
+</head>
+<body>
+<h1>JEL.bz paste bin</h1>
+<div id="error"></div>
+<form action="/pastes/" method="POST" id="pasteform">
+<label for="text">Paste content:</label><br>
+<textarea type="text" name="text" id="text"></textarea><br>
+<input type="checkbox" name="secret" id="secret">
+<label for="secret">Make the paste secret (doesn't show up on <a href="/pastes/">/pastes/</a>)</label><br>
+<input type="submit" >
+</form>
+<p>Checkout the source on <a href="https://github.com/pingiun/textshorten">github</a></p>
+<script>
+var form = document.getElementById('pasteform');
+form.onsubmit = function (event) {
+	event.preventDefault();
+	var http = new XMLHttpRequest();
+	var url = "http://localhost:5000/pastes/";
+	var params = "text=" + document.getElementById('text').value;
+	if (document.getElementById('secret').checked) {
+		params += "&secret=true"
+	}
+	
+	http.open("POST", url, true);
+
+	//Send the proper header information along with the request
+	http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+	http.onreadystatechange = function() {//Call a function when the state changes.
+	    if(http.readyState == 4 && http.status == 200) {
+	        alert(http.responseText);
+	    } else if (http.readyState == 4) {
+	    	document.getElementById('error').innerHTML = http.responseText;
+	    }
+	}
+	http.send(params);
+}
+</script>
+</body>
+</html>
