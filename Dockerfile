@@ -12,6 +12,6 @@ VOLUME ["/app/socket/"]
 
 ENV UWSGI_MOUNTPOINT /
 
-ENV UWSGI_APP urlshorten:app
+ENV UWSGI_APP textshorten:app
 
 CMD /usr/local/bin/uwsgi -s /app/socket/uwsgi.sock --manage-script-name --mount $UWSGI_MOUNTPOINT=$UWSGI_APP
