@@ -28,7 +28,7 @@ var form = document.getElementById('pasteform');
 form.onsubmit = function (event) {
 	event.preventDefault();
 	var http = new XMLHttpRequest();
-	var url = "http://localhost:5000/pastes/";
+	var url = "/pastes/";
 	var params = "text=" + document.getElementById('text').value;
 	if (document.getElementById('secret').checked) {
 		params += "&secret=true"
