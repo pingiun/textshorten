@@ -4,6 +4,8 @@ services:
     image: postgres
   web:
     build: .
+    ports: 
+      - "127.0.0.1:9001:9001"
     environment:
       UWSGI_MOUNTPOINT: /
       DB_URL: "postgresql://postgres@db/postgres"

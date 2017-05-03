@@ -8,10 +8,8 @@ WORKDIR /app
 
 RUN pip install uwsgi && pip install -r requirements.txt
 
-VOLUME ["/app/socket/"]
-
 ENV UWSGI_MOUNTPOINT /
 
 ENV UWSGI_APP textshorten:app
 
-CMD /usr/local/bin/uwsgi -s /app/socket/uwsgi.sock --manage-script-name --mount $UWSGI_MOUNTPOINT=$UWSGI_APP
+CMD /usr/local/bin/uwsgi --socket 0.0.0.0:9001 --manage-script-name --mount $UWSGI_MOUNTPOINT=$UWSGI_APP
