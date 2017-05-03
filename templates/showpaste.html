@@ -10,10 +10,6 @@
 </head>
 <body>
 <h1>JEL.bz paste bin</h1>
-<pre><code>
-	{%- for line in paste_content -%}
-	<span class="{{ loop.cycle('odd', 'even') }}">{{ line }}</span><br>
-	{%- endfor -%}
-</code></pre>
+<pre><code>{{ paste_content }}</code></pre>
 </body>
 </html>

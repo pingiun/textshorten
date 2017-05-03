@@ -29,7 +29,7 @@ form.onsubmit = function (event) {
 	event.preventDefault();
 	var http = new XMLHttpRequest();
 	var url = "/pastes/";
-	var params = "text=" + document.getElementById('text').value;
+	var params = "text=" + escape(document.getElementById('text').value);
 	if (document.getElementById('secret').checked) {
 		params += "&secret=true"
 	}

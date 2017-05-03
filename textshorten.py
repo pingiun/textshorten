@@ -150,19 +150,14 @@ def add_secret_paste(paste):
     db_session.commit()
     return pasteid
 
-@app.template_filter()
-@evalcontextfilter
-def nl2br(eval_ctx, value):
-    result = u'\n\n'.join(u'<p>%s</p>' % p.replace('\n', '<br>\n') \
-        for p in _paragraph_re.split(escape(value)))
-    if eval_ctx.autoescape:
-        result = Markup(result)
-    return result
+@app.route('/')
+def index():
+    return app.send_static_file('index.html')
 
 @app.route('/<string:paste_id>')
 def show_paste(paste_id):
     try:
-        return render_template("showpaste.html", paste_content=get_paste(paste_id).split('\n'))
+        return render_template("showpaste.html", paste_content=get_paste(paste_id))
     except Exception as e:
         logger.exception(e)
         return "404 Not found", 404
